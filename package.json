@@ -2,21 +2,67 @@
   "name": "placeholder-tag",
   "version": "0.0.1",
   "description": "html占位符标签. 占位符替换文本, 支持树状关系.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "keywords": [
+    "placeholder"
+  ],
+  "homepage": "https://github.com/PinghuaZhuang/placeholder-tag#readme",
+  "bugs": {
+    "url": "https://github.com/PinghuaZhuang/placeholder-tag/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PinghuaZhuang/placeholder-tag.git"
   },
-  "keywords": [
-    "placeholder"
-  ],
-  "author": "zphua2016@gmail.com",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/PinghuaZhuang/placeholder-tag/issues"
+  "author": "zphua2016@gmail.com",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "husky install",
+    "build": "npm run clean && npm run build:self && npm run build:esm && npm run build:aio && npm run build:aio.min",
+    "build:aio": "rollup -c config/rollup.config.aio.js",
+    "build:aio.min": "cross-env NODE_ENV=production npm run build:aio",
+    "build:esm": "rollup -c config/rollup.config.esm.js",
+    "build:self": "rollup -c config/rollup.config.js",
+    "clean": "rimraf ./dist",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "lint": "prettier --write src/*.js",
+    "release": "npm test && npm run build && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags",
+    "serve": "cd ./demo && npm run serve",
+    "sort": "sort-package-json package.json",
+    "test": "npm run lint && npm run build && npm run unit",
+    "unit": "mocha ./test/*.js ./test/**/*.js && cd ./demo && npm run test:unit"
   },
-  "homepage": "https://github.com/PinghuaZhuang/placeholder-tag#readme"
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "7.1.5",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/plugin-transform-typeof-symbol": "^7.2.0",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/register": "7.0.0",
+    "@babel/runtime": "^7.13.10",
+    "babel-core": "6.26.0",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-istanbul": "5.1.0",
+    "cross-env": "5.2.0",
+    "es5-shim": "4.5.10",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.5",
+    "mocha": "3.5.3",
+    "prettier": "^2.5.1",
+    "rimraf": "2.6.2",
+    "rollup": "0.57.1",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "8.3.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "3.0.3",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-typescript2": "0.18.0",
+    "rollup-plugin-uglify": "1.0.0",
+    "sort-package-json": "^1.54.0"
+  },
+  "npmClient": "yarn"
 }

@@ -1,0 +1,5 @@
+**/*.md
+**/*.svg
+**/*.ejs
+*.bak.js
+package.json
