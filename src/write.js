@@ -28,7 +28,7 @@ const str = `@@@@@@@@@@@@@@@<!-- @placeholder:jsqpro:start -->
 <!-- @placeholder:jsqpro:end -->@@@@@@@@@@@@@`;
 
 PlaceholderTag.parse(str);
-console.log(PlaceholderTag.replace(                  "jsqpro", [1, 2], "\n=======\n"));
+console.log(PlaceholderTag.replace("jsqpro", [1, 2], "\n=======\n"));
 fs.writeFileSync(
   filePath,
   PlaceholderTag.replace("jsqpro", [1, 2], "\n=======\n"),
