@@ -1,10 +1,3 @@
-/**
- * @file 根据注释标签替换指定区域内容
- * @example
- *  PlaceholderTag.parse(`<!-- @placeholder:test:start -->Hello world!<!-- @placeholder:test:end -->`)
- *  PlaceholderTag.replace('test', 'Change success')
- *  => `<!-- @placeholder:test:start -->Change success!<!-- @placeholder:test:end -->`
- */
 class PlaceholderTag {
   constructor(options = {}) {
     Object.assign(this, options, {
@@ -164,6 +157,7 @@ class PlaceholderTag {
    * @returns {Array<string>|string} 替换后的文本
    */
   static replace(section, ...rest) {
+    debugger
     let target = PlaceholderTag.map[section];
     if (target == null) {
       console.error(`<<< 没有获取到对应的 placeholderTag. section:`, section);
@@ -183,4 +177,5 @@ class PlaceholderTag {
   // }
 }
 
-export default PlaceholderTag
+module.exports = PlaceholderTag;
+// export default PlaceholderTag
