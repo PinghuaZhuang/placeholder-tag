@@ -30,7 +30,7 @@
     "serve": "cd ./demo && npm run serve",
     "sort": "sort-package-json package.json",
     "test": "npm run lint && npm run build && npm run unit",
-    "log": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "log": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "unit": "mocha ./test/*.js ./test/**/*.js && cd ./demo && npm run test:unit"
   },
   "dependencies": {},
