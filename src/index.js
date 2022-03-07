@@ -52,7 +52,7 @@ class PlaceholderTag {
    * @param {String} content 要替换的内容
    */
   replaceRange(range, content) {
-    if (!Array.isArray(range)) return ''
+    if (!Array.isArray(range)) return "";
     const [start, end] = range;
     return this.replace(
       new Array(end - start + 1).fill(1).map((_, index) => index + start),
@@ -146,9 +146,10 @@ class PlaceholderTag {
       const target = PlaceholderTag.map[section];
       if (target) {
         if (Array.isArray(target)) {
-          target.push(temp);
+          temp.index = target.push(temp) - 1;
         } else {
           PlaceholderTag.map[section] = [target, temp];
+          temp.index = 1;
         }
       }
       PlaceholderTag.map[section] = temp;
@@ -165,13 +166,14 @@ class PlaceholderTag {
    */
   static replace(section, ...rest) {
     let target = PlaceholderTag.map[section];
+    let index = rest[rest.length - 1];
     if (target == null) {
       console.error(`<<< 没有获取到对应的 placeholderTag. section:`, section);
       return "";
     }
     target = Array.isArray(target) ? target : target;
     if (Array.isArray(target)) {
-      return target.map((o) => o.replace(...rest));
+      return target[index ?? target.length - 1].replace(...rest);
     }
     return target.replace(...rest);
   }
@@ -183,4 +185,4 @@ class PlaceholderTag {
   // }
 }
 
-export default PlaceholderTag
+export default PlaceholderTag;
