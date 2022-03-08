@@ -1,5 +1,5 @@
 **/*.md
 **/*.svg
 **/*.ejs
+**/*.txt
 *.bak.js
-package.json
