@@ -7,34 +7,42 @@ const options = {
   encoding: 'utf8',
 };
 
-const str = `@@@@@@@@@@@@@@@<!-- @placeholder:jsqpro:start -->
-111
+const str = `@@@@@@@@@@@@@@@
+<!-- @placeholder:jsqpro:start -->
+jsqproContent-01
   <!-- @placeholder:test:start -->
-  222
+  testContent
   <!-- @placeholder:test:end -->
-  0000
-  <!-- @placeholder:test2:start -->
-  333
-  <!-- @placeholder:test2:end -->
-  555
+jsqproContent-02
+  <!-- @placeholder:test1:start -->
+  test1Content
+  <!-- @placeholder:test1:end -->
+jsqproContent-03
   <!-- @placeholder:test3:start -->
-  444
+    <!-- @placeholder:test3-1:start -->
+    test3-1Content
+    <!-- @placeholder:test3-1:end -->
+  test3Content
   <!-- @placeholder:test3:end -->
   <!-- @placeholder:test2:start -->
-  3332
+  test2Content
   <!-- @placeholder:test2:end -->
-999
-<!-- @placeholder:jsqpro:end -->@@@@@@@@@@@@@`;
+jsqproContent-04
+<!-- @placeholder:jsqpro:end -->
+@@@@@@@@@@@@@`;
 
 debugger;
-const placeholderTag = PlaceholderTag.parse(str);
-const content = PlaceholderTag.replace('jsqpro', [1, 2], '\n=======\n');
+PlaceholderTag.parse(str);
+PlaceholderTag.replace('test3-1', '\n    test3-1ContentChanged\n    ');
+PlaceholderTag.replace('test3', [1], '\n  test3ContentChanged\n    ');
+PlaceholderTag.replace('test', [0], '\n  testContentChanged\n  ');
+const content = PlaceholderTag.replace(
+  'jsqpro',
+  [1, 2],
+  '\njsqproContentChanged\n  ',
+);
 
 debugger;
 console.log('log:', content);
 
-fs.writeFileSync(
-  filePath,
-  PlaceholderTag.replace('jsqpro', [1, 2], '\n=======\n'),
-  options,
-);
+fs.writeFileSync(filePath, content, options);
