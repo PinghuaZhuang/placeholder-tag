@@ -140,7 +140,6 @@ class PlaceholderTag {
         section,
         children,
         parent,
-        // lastIndex: r.lastIndex,
       });
 
       const temp = new PlaceholderTag(_t);
@@ -161,7 +160,7 @@ class PlaceholderTag {
       PlaceholderTag.map[section] = temp;
       result.push(temp);
     }
-    return parent ? temp : result;
+    return parent ? result : result[0];
   }
 
   /**
