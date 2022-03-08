@@ -33,6 +33,14 @@
     "test": "npm run lint && npm run build && npm run unit",
     "unit": "mocha ./test/*.js ./test/**/*.js && cd ./demo && npm run test:unit"
   },
+  "lint-staged": {
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write"
+    ]
+  },
   "dependencies": {},
   "devDependencies": {
     "@babel/cli": "7.1.5",

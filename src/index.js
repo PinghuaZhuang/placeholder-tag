@@ -20,8 +20,8 @@ class PlaceholderTag {
    */
   replace(indexs, contents) {
     if (
-      typeof indexs === "string" ||
-      indexs?.some((o) => typeof o === "string")
+      typeof indexs === 'string' ||
+      indexs?.some((o) => typeof o === 'string')
     ) {
       contents = indexs;
       indexs = [0];
@@ -29,9 +29,9 @@ class PlaceholderTag {
 
     let i = 0;
     let { children, partition, before, after, section } = this;
-    let result = "";
+    let result = '';
     for (; i < partition.length; i++) {
-      result += children[i - 1]?.match || "";
+      result += children[i - 1]?.match || '';
       if (indexs.includes(i)) {
         result += Array.isArray(contents) ? contents[i] : contents;
       } else {
@@ -39,10 +39,11 @@ class PlaceholderTag {
       }
     }
     this.match = this.match.replace(
-      PlaceholderTag.createRegExpWithSection(section, "g", true),
-      `$1${result}$2`
+      PlaceholderTag.createRegExpWithSection(section, 'g', true),
+      `$1${result}$2`,
     );
     this.source = before + this.match + after;
+
     return this.source;
   }
 
@@ -52,11 +53,11 @@ class PlaceholderTag {
    * @param {String} content 要替换的内容
    */
   replaceRange(range, content) {
-    if (!Array.isArray(range)) return "";
+    if (!Array.isArray(range)) return '';
     const [start, end] = range;
     return this.replace(
       new Array(end - start + 1).fill(1).map((_, index) => index + start),
-      content
+      content,
     );
   }
 
@@ -71,8 +72,8 @@ class PlaceholderTag {
    */
   static createRegExp() {
     return new RegExp(
-      "\\<\\!--\\s*@placeholder:(?<section>.*):start\\s*--\\>(?<content>[\\s\\S]*?)\\<\\!--\\s*@placeholder:\\k<section>:end\\s*--\\>",
-      "g"
+      '\\<\\!--\\s*@placeholder:(?<section>.*):start\\s*--\\>(?<content>[\\s\\S]*?)\\<\\!--\\s*@placeholder:\\k<section>:end\\s*--\\>',
+      'g',
     );
   }
 
@@ -95,7 +96,7 @@ class PlaceholderTag {
   static createRegExpWithSection(section, flags, isNoCapture) {
     const regStr = `(\\<\\!--\\s*@placeholder:${section}:start\\s*--\\>)[\\s\\S]*?(\\<\\!--\\s*@placeholder:${section}:end\\s*--\\>)`;
     if (isNoCapture) {
-      regStr.replace(/\(|\)/g, "");
+      regStr.replace(/\(|\)/g, '');
     }
     return new RegExp(regStr, flags);
   }
@@ -119,7 +120,7 @@ class PlaceholderTag {
       const children = PlaceholderTag.parse(groups.content, _t);
       const partition = [];
       const outStr = htmlString.split(
-        PlaceholderTag.createRegExpWithSection(section, "g", true)
+        PlaceholderTag.createRegExpWithSection(section, 'g', true),
       );
 
       for (let { match: curMatch } of children) {
@@ -151,6 +152,11 @@ class PlaceholderTag {
           PlaceholderTag.map[section] = [target, temp];
           temp.index = 1;
         }
+        console.warn(
+          `${section} already defined. Please look it up by index. index: ${temp.index}`,
+          temp,
+          target,
+        );
       }
       PlaceholderTag.map[section] = temp;
       result.push(temp);
@@ -169,7 +175,7 @@ class PlaceholderTag {
     let index = rest[rest.length - 1];
     if (target == null) {
       console.error(`<<< 没有获取到对应的 placeholderTag. section:`, section);
-      return "";
+      return '';
     }
     target = Array.isArray(target) ? target : target;
     if (Array.isArray(target)) {
