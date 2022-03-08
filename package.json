@@ -25,11 +25,11 @@
     "build:self": "rollup -c config/rollup.config.js",
     "clean": "rimraf ./dist",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "example": "babel-node ./example/write.js --config-file ./example/.babelrc --no-babelrc",
     "lint": "prettier --write *.js",
     "log": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "prepare": "husky install",
     "release": "npm run test && npm run build && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags",
-    "serve": "cd ./demo && npm run serve",
     "sort": "sort-package-json package.json",
     "test": "npm run lint && npm run build && npm run unit",
     "unit": "mocha ./test/*.js ./test/**/*.js && cd ./demo && npm run test:unit"

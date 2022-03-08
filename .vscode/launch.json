@@ -7,9 +7,16 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "src/index",
-      "program": "${workspaceFolder}/src/index.js", //这里的lodashTest.js是你的测试文件
-      "runtimeExecutable": "babel-node"
+      "name": "write",
+      "program": "${workspaceFolder}/example/write.js",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "example"],
+      "args": [
+        // "--config-file ${workspaceFolder}\\example\\.babelrc",
+        // "--presets @babel/preset-env",
+        // "--no-babelrc",
+        // "-b env"
+      ]
     }
   ]
 }

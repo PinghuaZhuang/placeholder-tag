@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const PlaceholderTag = require('../');
-
+const PlaceholderTag = require('../src').default;
 const filePath = path.resolve(__dirname, './text.txt');
 
 const options = {
@@ -27,8 +26,13 @@ const str = `@@@@@@@@@@@@@@@<!-- @placeholder:jsqpro:start -->
 999
 <!-- @placeholder:jsqpro:end -->@@@@@@@@@@@@@`;
 
-PlaceholderTag.parse(str);
-console.log(PlaceholderTag.replace('jsqpro', [1, 2], '\n=======\n'));
+debugger;
+const placeholderTag = PlaceholderTag.parse(str);
+const content = PlaceholderTag.replace('jsqpro', [1, 2], '\n=======\n');
+
+debugger;
+console.log('log:', content);
+
 fs.writeFileSync(
   filePath,
   PlaceholderTag.replace('jsqpro', [1, 2], '\n=======\n'),

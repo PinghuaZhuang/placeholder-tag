@@ -19,6 +19,9 @@ class PlaceholderTag {
    * @returns {String}
    */
   replace(indexs, contents) {
+    let { children, partition, before, after, section } = this;
+    this.source = before + this.match + after;
+
     if (
       typeof indexs === 'string' ||
       indexs?.some((o) => typeof o === 'string')
@@ -28,7 +31,6 @@ class PlaceholderTag {
     }
 
     let i = 0;
-    let { children, partition, before, after, section } = this;
     let result = '';
     for (; i < partition.length; i++) {
       result += children[i - 1]?.match || '';
@@ -42,9 +44,9 @@ class PlaceholderTag {
       PlaceholderTag.createRegExpWithSection(section, 'g', true),
       `$1${result}$2`,
     );
-    this.source = before + this.match + after;
+    this.content = result;
 
-    return this.source;
+    return before + this.match + after;
   }
 
   /**
