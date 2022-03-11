@@ -37,4 +37,14 @@ describe('Placeholder instance method', function () {
       true,
     );
   });
+
+  it('instance replace', function () {
+    expect(
+      PlaceholderTag.parse(
+        `<!-- @placeholder:test-5:start -->test-5Content<!-- @placeholder:test-5:end -->`,
+      ).replace('test-5Changed'),
+    ).to.be.equal(
+      `<!-- @placeholder:test-5:start -->test-5Changed<!-- @placeholder:test-5:end -->`,
+    );
+  });
 });
