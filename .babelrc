@@ -1,17 +1,5 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "browsers": "last 2 versions, > 1%, ie >= 8, Firefox >= 55, Safari >= 9, Android >= 4, iOS >= 9, and_uc > 11",
-          "node": "12"
-        },
-        "modules": false,
-        "loose": false
-      }
-    ]
-  ],
+  "presets": [["@babel/preset-env"]],
   "plugins": [
     [
       "@babel/plugin-transform-runtime",

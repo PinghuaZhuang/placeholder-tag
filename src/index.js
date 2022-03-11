@@ -46,7 +46,7 @@ class PlaceholderTag {
     );
     this.content = result;
 
-    return before + this.match + after;
+    return (this.replacement = before + this.match + after);
   }
 
   /**
@@ -61,6 +61,24 @@ class PlaceholderTag {
       new Array(end - start + 1).fill(1).map((_, index) => index + start),
       content,
     );
+  }
+
+  /**
+   * 根据section查找最近的子元素
+   * @param {String} section 子元素的section值
+   * @returns {PlaceholderTag} 目标对象
+   */
+  find(section) {
+    const { children } = this;
+    let i = 0,
+      { length } = children,
+      target;
+    if (children == null) return;
+    for (; i < length; i++) {
+      target = this.children[i];
+      if (target.section === section) return target;
+      return target.find(section);
+    }
   }
 
   /**
@@ -173,16 +191,24 @@ class PlaceholderTag {
    */
   static replace(section, ...rest) {
     let target = PlaceholderTag.map[section];
-    let index = rest[rest.length - 1];
+    // let index = rest[rest.length - 1];
     if (target == null) {
-      console.error(`<<< 没有获取到对应的 placeholderTag. section:`, section);
+      console.error(`<<< No find placeholderTag object. section:`, section);
       return '';
     }
-    target = Array.isArray(target) ? target : target;
-    if (Array.isArray(target)) {
-      return target[index ?? target.length - 1].replace(...rest);
+    if (Array.isArray(PlaceholderTag.map[section])) {
+      // return target[index ?? target.length - 1].replace(...rest);
+      target.forEach((o) => o.replace(...rest));
+      return target[0].replacement;
     }
     return target.replace(...rest);
+  }
+
+  /**
+   * 清除 map 保存的数据
+   */
+  static clean() {
+    this.map = {};
   }
 
   // static covertString(str) {
