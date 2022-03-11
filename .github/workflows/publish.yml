@@ -1,29 +1,28 @@
 name: Publish
 
 on:
-  release:
+  create:
+    tags:
+      - placeholder*
   workflow_dispatch:
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Get version and tag
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
       - run: |
           git branch -r --contains ${{ github.ref }}
-          version=$(node -p "require('./package.json').version")
-      - run: echo "TAG=${{ github.ref }} VERSION=${{ version }}"
-      - run: |
-          echo "Version changed: ${{ steps.publish.outputs.old-version }} => ${{ steps.publish.outputs.version }}"
       - run: yarn
-      - run: yarn test
+      - run: yarn unit
       - run: yarn build
 
-      - name: Publish to NPM
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
+      - if: steps.publish.outputs.type != 'none'
+        run: |
+          echo "Version changed: ${{ steps.publish.outputs.old-version }} => ${{ steps.publish.outputs.version }}"
