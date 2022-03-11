@@ -176,8 +176,9 @@ class PlaceholderTag {
           temp,
           target,
         );
+      } else {
+        PlaceholderTag.map[section] = temp;
       }
-      PlaceholderTag.map[section] = temp;
       result.push(temp);
     }
     return parent ? result : result[0];
