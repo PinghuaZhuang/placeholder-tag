@@ -17,6 +17,18 @@
         // "--no-babelrc",
         // "-b env"
       ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "write-inspector",
+      "program": "${workspaceFolder}/example/write.js",
+      "runtimeExecutable": "babel-node",
+      "protocol": "inspector",
+      "args": [
+        "--inspect"
+        // "--inspect-brk"
+      ]
     }
   ]
 }
