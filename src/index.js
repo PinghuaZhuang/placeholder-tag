@@ -57,10 +57,12 @@ class PlaceholderTag {
   replaceRange(range, content) {
     if (!Array.isArray(range)) return '';
     const [start, end] = range;
-    return this.replace(
-      new Array(end - start + 1).fill(1).map((_, index) => index + start),
-      content,
-    );
+    const rangeArr = [];
+    let i = start;
+    for (; i <= end; i++) {
+      rangeArr.push(i);
+    }
+    return this.replace(rangeArr, content);
   }
 
   /**
