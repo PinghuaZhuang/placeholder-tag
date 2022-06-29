@@ -1,5 +1,16 @@
 {
-  "presets": [["@babel/preset-env"]],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage",
+        "corejs": "3.23",
+        "targets": {
+          "chrome": 49
+        }
+      }
+    ]
+  ],
   "plugins": [
     [
       "@babel/plugin-transform-runtime",
