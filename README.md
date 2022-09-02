@@ -19,8 +19,8 @@ const mock = `<!-- @placeholder:test:start -->testContent<!-- @placeholder:test:
 ```
 
 ```js
-PlaceholderTag.parse(mock).replace('\ntestContentChanged\n  ')
-// => `<!-- @placeholder:test:start -->testChanged<!-- @placeholder:test:end -->`
+PlaceholderTag.parse(mock).replace('testContentChanged')
+// => `<!-- @placeholder:test:start -->testContentChanged<!-- @placeholder:test:end -->`
 ```
 
 ## Methods
